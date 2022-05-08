@@ -1,0 +1,36 @@
+============================ Thread Pool Executor ============================
+
+Student: Gheorghe Adrian-Valentin
+Grupa: 331CB
+Punctaj: 135/135 + 20p Valgrind
+
+1. Descriere:
+Tema consta in implementarea unui Thread Pool Executor care, primind un numar 
+de nuclee si un timp maxim de executie, simuleaza modul in care taskurile sunt
+rulate in paralel. In principiu, programul este bazat pe 4 structuri de date:
+3 cozi implementate folosind liste(running - coada in care se afla taskurile ce
+sunt in curs de rulare, waiting - coada in care se afla taskurile puse pe 
+asteptare si finished - coada in care se afla taskurile terminate) si o stiva 
+de thread-uri.Arhiva contine 3 fisiere sursa: tema2.c in care se afla functia 
+main si consola interactiva, functiiAux in care se afla toate functiile 
+implementate(functiile pentru liste, stive, cozi si cele implementate pentru 
+rezolvarea cerintelor) si un header functiiAux.h.
+
+2. Detalii implementare:
+La inceput stiva se umple cu numarul maxim de threaduri, dat de dublul numarului
+de nuclee. Pentru prima cerinta(add_tasks), taskul citit se introduce in coada
+waiting si primeste un id utilizabil(liber). Pentru comanda "get_task", se cauta
+taskul dupa id mai intai in coada running, apoi in cea de asteptare si, in final,
+in coada finished. Pentru aceasta am ales sa fac mai multe functii de comparare
+si, ca si mod de gandire, intai cautam in lista running, folosind o functie care 
+returneaza indexul taskului cautat(daca acesta exista) sau -1(daca acesta nu 
+exista), folosind functiile specifice cozilor. Pentru afisarea informatiilor 
+despre task ne folosim de tot de operatiile amintite de mai sus. Astfel, scoatem 
+toate elementele pana la indexul amintit anterior, apoi retinut elementul cerut 
+si, in final, puse toate elementele urmatoare in apoi in coada, ca sa mentinem 
+ordinea initiala. Pentru comanda "get_thread" am procedat asemanator, in timp 
+ce pentru comanda de printare am ales sa fac functii separate pentru fiecare 
+coada. Pentru run am ales sa iau fiecare task din running si sa simulam rularea 
+lor, scazand timpii de executie. In final ne intereseaza taskurile care se 
+termina, acestea fiind scoase din running si puse in coada de finished. Ultima
+comanda este, de fapt, apelarea functiei de run pana la terminarea taskurilor.
